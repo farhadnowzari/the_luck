@@ -15,7 +15,7 @@ class CreateContestsTable extends Migration
     {
         Schema::create('contests', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('rounds');
+            $table->integer('total_rounds');
             $table->integer('finished_rounds');
             $table->string('session_id')->index();
             $table->timestamps();
