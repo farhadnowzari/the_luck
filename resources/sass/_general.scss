@@ -1,0 +1,28 @@
+html, body {
+    background-color: #f4f4f4;
+    color: #444;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 200;
+    height: 100vh;
+    margin: 0;
+}
+
+$max-widths: (
+  xxxs: 250px,
+  xxs: 350px,
+  xs: 450px,
+  sm: 540px,
+  smd: 620px,
+  md: 720px,
+  lm: 800px,
+  lg: 960px,
+  xl: 1140px,
+  xxl: 1360px,
+  xxxl: 1600px,
+) !default;
+
+@each $size, $length in $max-widths {
+    .mw-#{$size} {
+        max-width: $length;
+    }
+}
