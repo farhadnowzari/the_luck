@@ -17,7 +17,7 @@ class CreateContestsTable extends Migration
             $table->bigIncrements('id');
             $table->integer('rounds');
             $table->integer('finished_rounds');
-            $table->string('session_id');
+            $table->string('session_id')->index();
             $table->timestamps();
         });
     }
