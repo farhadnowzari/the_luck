@@ -17,3 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::as('contests.')->prefix('contests')->group(function() {
+    Route::get('/', 'ContestsController@listOldContests')->name('list');
+    Route::post('/', 'ContestsController@createContest')->name('create');
+    Route::get('/get/paused', 'ContestsController@retrieveOpenContest')->name('get_paused_contest');
+});
