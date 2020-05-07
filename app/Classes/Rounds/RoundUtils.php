@@ -28,6 +28,7 @@ class RoundUtils {
         $round = DB::transaction(function () use($round) {
             $round->state = RoundState::FINISHED;
             $round->save();
+            $round->contest->finished_rounds += 1;
             $contestants = [];
             $judges = $round->judges;
             foreach($round->contestants as $contestant) {
