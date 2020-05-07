@@ -15,7 +15,7 @@ class RoundUtils {
             'contest',
             'genre',
             'judges',
-            'contestants'
+            'contestants.genres'
         ])
             ->where('id', $roundId)
             ->where('state', '!=', RoundState::FINISHED) //We dont want to do anything about finished rounds
@@ -29,8 +29,21 @@ class RoundUtils {
             $round->state = RoundState::FINISHED;
             $round->save();
             $contestants = [];
-            
+            $judges = $round->judges;
+            foreach($round->contestants as $contestant) {
+                $contestantScore = ScoreUtils::calculateRoundScore($round->genre_id, $contestant);
+                $finalScore = ScoreUtils::calculateJudgementScore($contestantScore, $round->genre, $judges, $contestant);
+                $sick = $contestant->pivot->sick;
+                $contestants[$contestant->id] = [
+                    'contestant_score' => $contestantScore,
+                    'final_score' => $finalScore,
+                    'sick' => $sick,
+                ];
+            }
+            $round->contestants()->sync($contestants);
+            return $round;
         });
+        return $round;
     }
 
     public static function startRound(Round $round): Round {

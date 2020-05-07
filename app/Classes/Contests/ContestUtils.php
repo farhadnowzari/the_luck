@@ -27,6 +27,8 @@ class ContestUtils
         'Pooneh',
         'Pouya',
         'Baran',
+        'Dimitri',
+        'Dastan',
     ];
 
     public static function contestantGetsSick(): bool {

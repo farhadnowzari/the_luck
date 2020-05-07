@@ -20,6 +20,15 @@ class RoundsController extends Controller
     public function evaluateRound(Request $request) {
         $sessionId = $this->getSessionIdFromHeader();
         $round = RoundUtils::validateBySessionId($request->roundId, $sessionId);
-        
+        $round = RoundUtils::evaludateRound($round);
+        $round->refresh();
+        $round->loadMissing('contest');
+        $contest = $round->contest;
+        $contest->loadMissing([
+            'rounds.judges',
+            'rounds.contestants',
+            'contestants'
+        ]);
+        return response()->json($contest);
     }
 }
