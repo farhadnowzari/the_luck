@@ -20,12 +20,12 @@ class MakeModelRelations extends Migration
 
         Schema::create('round_contestant', function(Blueprint $table) {
             $table->unsignedInteger('round_id')->index();
-            $table->unsignedInteger('judge_id')->index();
+            $table->unsignedInteger('contestant_id')->index();
             $table->boolean('sick');
             $table->float('contestant_score');
             $table->float('final_score');
 
-            $table->primary(['round_id', 'judge_id']);
+            $table->primary(['round_id', 'contestant_id']);
         });
 
         Schema::create('contestant_genre', function(Blueprint $table) {

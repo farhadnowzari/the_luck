@@ -7,9 +7,9 @@ class Verify {
     public static function that(bool $condition, ?string $message = null): void {
         if(!$condition) {
             if($message !== null) {
-                abort($message);
+                abort(400, $message);
             } else {
-                abort('Expected condition expected to be true');
+                abort(400, 'Expected condition expected to be true');
             }
         }
     }

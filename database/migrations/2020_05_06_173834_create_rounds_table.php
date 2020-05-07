@@ -17,7 +17,7 @@ class CreateRoundsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedInteger('contest_id')->index();
             $table->unsignedInteger('genre_id')->index();
-            $table->boolean('finished');
+            $table->string('state');
             $table->timestamps();
 
             $table->foreign('contest_id')->references('id')->on('contests')->onDelete('cascade');

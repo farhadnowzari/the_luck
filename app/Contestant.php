@@ -14,7 +14,7 @@ class Contestant extends Model
 
     public function genres(): BelongsToMany {
         return $this
-            ->belongsToMany(Genre::class, 'contestant_genre', 'genre_id', 'contestant_id')
+            ->belongsToMany(Genre::class, 'contestant_genre', 'contestant_id', 'genre_id')
             ->withPivot(['strength_score']);
     }
 }

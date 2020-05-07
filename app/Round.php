@@ -18,12 +18,12 @@ class Round extends Model
     }
     
     public function judges(): BelongsToMany {
-        return $this->belongsToMany(Judge::class, 'round_judge', 'judge_id', 'round_id');
+        return $this->belongsToMany(Judge::class, 'round_judge', 'round_id', 'judge_id');
     }
 
     public function contestants(): BelongsToMany {
         return $this
-            ->belongsToMany(Contestant::class, 'round_contestant', 'contestant_id', 'round_id')
+            ->belongsToMany(Contestant::class, 'round_contestant', 'round_id', 'contestant_id')
             ->withPivot(['sick', 'contestant_score', 'final_score']);
     }
 }
