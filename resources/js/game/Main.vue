@@ -4,7 +4,7 @@
             <div class="w-100 border-bottom d-flex align-items-center py-2 px-3">
                 <h5 class="mb-0 mr-auto">Contests</h5>
                 <button @click="createContest()" class="btn btn-primary" type="button" v-if="contest === null">New Contest</button>
-                <button @click="nextRound()" class="btn btn-primary" type="button" v-else>Next Round</button>
+                <button @click="nextRound()" class="btn btn-primary" type="button" v-else>{{nextRoundButtonText}}</button>
             </div>
             <div v-if="contest === null">
                 <div class="d-flex align-items-center justify-content-center flex-column w-100 my-5" v-if="noOldContests">
@@ -25,7 +25,13 @@
                     </div>
                 </div>
             </div>
-            <contest :contest="contest" ref="contestComponent" v-else></contest>
+            <contest 
+                @evaluate="processEvaluation" 
+                @finish="finishContest"
+                :contest="contest" 
+                :key="contestComponentKey"
+                ref="contestComponent" 
+                v-else></contest>
         </div>
         <loader v-if="loading" text="Please wait"></loader>
     </div>
@@ -33,6 +39,7 @@
 <script>
 import Contest from './Contest';
 import loader from '../components/loader';
+import { ContestViewModel } from './ContestViewModel';
 const SESSION_ID = window.theLuck.get('sessionId');
 export default {
     components: {
@@ -42,13 +49,21 @@ export default {
     computed: {
         noOldContests() {
             return this.oldContests.length === 0;
+        },
+        nextRoundButtonText() {
+            if(this.contest) {
+                const remainingRounds = (this.contest.totalRounds - this.contest.finishedRounds) - 1;
+                return remainingRounds === 1 ? 'Got to Final!' : remainingRounds === 0 ? 'Finish' : 'Next Round';
+            }
+            return 'N/A';
         }
     },
     data() {
         return {
             loading: false,
             oldContests: [],
-            contest: null
+            contest: null,
+            contestComponentKey: 1,
         }
     },
     methods: {
@@ -68,6 +83,11 @@ export default {
             })
 
         },
+        async finishContest() {
+            this.contest = null;
+            this.oldContests = [];
+            this.loadMenu();
+        },
         retrieveOngoingContest() {
             this.loading = true;
             axios({
@@ -83,31 +103,43 @@ export default {
                 this.loading = false;
             });
         },
-        async loadMenu() {
+        loadMenu() {
             this.loading = true;
-            try {
-                let response = await axios({
-                    method: 'get',
-                    url: route('api.contests.list'),
-                });
+            axios({
+                method: 'get',
+                url: route('api.contests.list')
+            })
+            .then(response => {
                 this.oldContests = response.data;
-                response = await axios({
+                axios({
                     method: 'get',
                     url: route('api.contests.get_paused_contest')
-                });
-                this.contest = response.data === {} || !response.data ? null : response.data;
+                })
+                .then(response => {
+                    this.contest = response.data.length === 0 || !response.data ? null : response.data;
+                    this.contest = ContestViewModel.build(this.contest);
+                    this.loading = false;
+                })
+                .catch(e => {
+                    console.error(e);
+                    this.loading = false;
+                })
+            })
+            .catch(e => {
+                console.error(e);
                 this.loading = false;
-            } catch(e) {
-                cosole.error(e);
-                this.loading = false;
-            }         
+            });  
         },
         async nextRound() {
             await this.$refs.contestComponent.requestNextRound();
+        },
+        processEvaluation(contest) {
+            this.contest = ContestViewModel.build(contest);
+            this.contestComponentKey += 1;
         }
     },
-    async mounted() {
-        await this.loadMenu();  
+    mounted() {
+        this.loadMenu();  
     },
     name: 'main-menu',
 }

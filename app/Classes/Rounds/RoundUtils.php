@@ -29,6 +29,7 @@ class RoundUtils {
             $round->state = RoundState::FINISHED;
             $round->save();
             $round->contest->finished_rounds += 1;
+            $round->contest->save();
             $contestants = [];
             $judges = $round->judges;
             foreach($round->contestants as $contestant) {

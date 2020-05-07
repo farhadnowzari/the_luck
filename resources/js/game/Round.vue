@@ -59,6 +59,7 @@ export default {
             }
         },
         startRound() {
+            if(this.model.finished()) return;
             this.loading = true;
             axios({
                 url: route('api.rounds.start', {roundId: this.round.id}),
@@ -66,6 +67,7 @@ export default {
             })
             .then(response => {
                 this.model = RoundViewModel.build(response.data);
+                console.log(this.model);
                 this.loading = false;
             })
             .catch(e => {

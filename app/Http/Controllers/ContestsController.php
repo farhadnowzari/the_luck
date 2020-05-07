@@ -46,6 +46,6 @@ class ContestsController extends Controller
             $openContest->loadMissing(self::RELATIONS);
             return response()->json(ContestViewModel::build($openContest));
         }
-        return response()->json(null);
+        return response()->json();
     }
 }

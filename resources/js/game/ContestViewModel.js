@@ -17,6 +17,7 @@ export class ContestViewModel {
     }
 
     static build(obj) {
+        if(!obj) return null;
         return new ContestViewModel(obj);
     }
 }

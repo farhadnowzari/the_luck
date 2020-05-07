@@ -3,13 +3,14 @@
         <div class="border-bottom py-1 px-3 text-muted d-flex align-items-center">
             <span title="Contestants"><i class="fa fa-users"></i> {{totalContestants}}</span>
             <span class="mx-2">|</span>
-            <span>Round <strong>{{contest.finishedRounds + 1}}/{{contest.totalRounds}}</strong></span>
+            <span>Round <strong>{{model.finishedRounds + 1}}/{{model.totalRounds}}</strong></span>
             <span class="mx-2">|</span>
             <span title="Genre" v-if="activeRound"><i class="fa fa-music"></i> {{activeRound.genreText}}</span>
         </div>
         <round 
             @evaluate="processEvaludatedRound" 
             :round="activeRound" 
+            :key="activeRound.id"
             ref="roundComponent" 
             v-if="activeRound"></round>
     </div>
@@ -30,10 +31,10 @@ export default {
             return null;
         },
         totalContestants() {
-            return this.contest.contestants.length;
+            return this.model.contestants.length;
         },
         availableRounds() {
-            const rounds = this.contest.rounds;
+            const rounds = this.model.rounds;
             return rounds.filter(r => {
                 return !this.finishedRounds.find(fr => fr === r.id);
             });
@@ -42,7 +43,7 @@ export default {
     data() {
         return {
             finishedRounds: [],
-            model: ContestViewModel.build(this.contest)
+            model: ContestViewModel.build(this.contest),
         }
     },
     methods: {
@@ -50,7 +51,10 @@ export default {
             await this.$refs.roundComponent.evaluateRound();
         },
         processEvaludatedRound(contest) {
-            this.contest = ContestViewModel.build(contest);
+            this.$emit('evaluate', contest);
+            if(contest.finishedRounds === contest.totalRounds) {
+                this.$emit('finish');
+            }
         }
     },
     mounted() {

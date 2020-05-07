@@ -161,6 +161,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -176,12 +177,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return null;
     },
     totalContestants: function totalContestants() {
-      return this.contest.contestants.length;
+      return this.model.contestants.length;
     },
     availableRounds: function availableRounds() {
       var _this = this;
 
-      var rounds = this.contest.rounds;
+      var rounds = this.model.rounds;
       return rounds.filter(function (r) {
         return !_this.finishedRounds.find(function (fr) {
           return fr === r.id;
@@ -216,7 +217,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     processEvaludatedRound: function processEvaludatedRound(contest) {
-      this.contest = _ContestViewModel__WEBPACK_IMPORTED_MODULE_1__["ContestViewModel"].build(contest);
+      this.$emit('evaluate', contest);
+
+      if (contest.finishedRounds === contest.totalRounds) {
+        this.$emit('finish');
+      }
     }
   },
   mounted: function mounted() {
@@ -252,6 +257,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _Contest__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Contest */ "./resources/js/game/Contest.vue");
 /* harmony import */ var _components_loader__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/loader */ "./resources/js/components/loader.vue");
+/* harmony import */ var _ContestViewModel__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ContestViewModel */ "./resources/js/game/ContestViewModel.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -290,6 +296,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+
 
 
 var SESSION_ID = window.theLuck.get('sessionId');
@@ -301,13 +314,22 @@ var SESSION_ID = window.theLuck.get('sessionId');
   computed: {
     noOldContests: function noOldContests() {
       return this.oldContests.length === 0;
+    },
+    nextRoundButtonText: function nextRoundButtonText() {
+      if (this.contest) {
+        var remainingRounds = this.contest.totalRounds - this.contest.finishedRounds - 1;
+        return remainingRounds === 1 ? 'Got to Final!' : remainingRounds === 0 ? 'Finish' : 'Next Round';
+      }
+
+      return 'N/A';
     }
   },
   data: function data() {
     return {
       loading: false,
       oldContests: [],
-      contest: null
+      contest: null,
+      contestComponentKey: 1
     };
   },
   methods: {
@@ -327,70 +349,69 @@ var SESSION_ID = window.theLuck.get('sessionId');
         _this.loading = false;
       });
     },
-    retrieveOngoingContest: function retrieveOngoingContest() {
+    finishContest: function finishContest() {
       var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _this2.contest = null;
+                _this2.oldContests = [];
+
+                _this2.loadMenu();
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    retrieveOngoingContest: function retrieveOngoingContest() {
+      var _this3 = this;
 
       this.loading = true;
       axios({
         url: route('api.contests.get_paused_contest'),
         method: 'get'
       }).then(function (response) {
-        _this2.contest = response.data === {} || !response.data ? null : response.data;
-        _this2.loading = false;
+        _this3.contest = response.data === {} || !response.data ? null : response.data;
+        _this3.loading = false;
       })["catch"](function (e) {
         console.error(e);
-        _this2.loading = false;
+        _this3.loading = false;
       });
     },
     loadMenu: function loadMenu() {
-      var _this3 = this;
+      var _this4 = this;
 
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var response;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                _this3.loading = true;
-                _context.prev = 1;
-                _context.next = 4;
-                return axios({
-                  method: 'get',
-                  url: route('api.contests.list')
-                });
-
-              case 4:
-                response = _context.sent;
-                _this3.oldContests = response.data;
-                _context.next = 8;
-                return axios({
-                  method: 'get',
-                  url: route('api.contests.get_paused_contest')
-                });
-
-              case 8:
-                response = _context.sent;
-                _this3.contest = response.data === {} || !response.data ? null : response.data;
-                _this3.loading = false;
-                _context.next = 17;
-                break;
-
-              case 13:
-                _context.prev = 13;
-                _context.t0 = _context["catch"](1);
-                cosole.error(_context.t0);
-                _this3.loading = false;
-
-              case 17:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee, null, [[1, 13]]);
-      }))();
+      this.loading = true;
+      axios({
+        method: 'get',
+        url: route('api.contests.list')
+      }).then(function (response) {
+        _this4.oldContests = response.data;
+        axios({
+          method: 'get',
+          url: route('api.contests.get_paused_contest')
+        }).then(function (response) {
+          _this4.contest = response.data.length === 0 || !response.data ? null : response.data;
+          _this4.contest = _ContestViewModel__WEBPACK_IMPORTED_MODULE_3__["ContestViewModel"].build(_this4.contest);
+          _this4.loading = false;
+        })["catch"](function (e) {
+          console.error(e);
+          _this4.loading = false;
+        });
+      })["catch"](function (e) {
+        console.error(e);
+        _this4.loading = false;
+      });
     },
     nextRound: function nextRound() {
-      var _this4 = this;
+      var _this5 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
@@ -398,7 +419,7 @@ var SESSION_ID = window.theLuck.get('sessionId');
             switch (_context2.prev = _context2.next) {
               case 0:
                 _context2.next = 2;
-                return _this4.$refs.contestComponent.requestNextRound();
+                return _this5.$refs.contestComponent.requestNextRound();
 
               case 2:
               case "end":
@@ -407,26 +428,14 @@ var SESSION_ID = window.theLuck.get('sessionId');
           }
         }, _callee2);
       }))();
+    },
+    processEvaluation: function processEvaluation(contest) {
+      this.contest = _ContestViewModel__WEBPACK_IMPORTED_MODULE_3__["ContestViewModel"].build(contest);
+      this.contestComponentKey += 1;
     }
   },
   mounted: function mounted() {
-    var _this5 = this;
-
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
-        while (1) {
-          switch (_context3.prev = _context3.next) {
-            case 0:
-              _context3.next = 2;
-              return _this5.loadMenu();
-
-            case 2:
-            case "end":
-              return _context3.stop();
-          }
-        }
-      }, _callee3);
-    }))();
+    this.loadMenu();
   },
   name: 'main-menu'
 });
@@ -543,6 +552,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     startRound: function startRound() {
       var _this2 = this;
 
+      if (this.model.finished()) return;
       this.loading = true;
       axios({
         url: route('api.rounds.start', {
@@ -551,6 +561,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         method: 'post'
       }).then(function (response) {
         _this2.model = _RoundViewModel__WEBPACK_IMPORTED_MODULE_2__["RoundViewModel"].build(response.data);
+        console.log(_this2.model);
         _this2.loading = false;
       })["catch"](function (e) {
         _this2.loading = false;
@@ -581,7 +592,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.overlay[data-v-155ec09e] {\n    z-index: 99;\n    left: 0;\n    top: 0;\n    background-color: rgba(0, 0, 0, .9);\n}\n.spinner-border-lg[data-v-155ec09e] {\n    width:2.5rem;\n    height: 2.5rem;\n}\n", ""]);
+exports.push([module.i, "\n.overlay[data-v-155ec09e] {\n    z-index: 99;\n    left: 0;\n    top: 0;\n    background-color: rgba(255, 255, 255, .95);\n}\n.spinner-border-lg[data-v-155ec09e] {\n    width:2.5rem;\n    height: 2.5rem;\n}\n", ""]);
 
 // exports
 
@@ -2445,10 +2456,12 @@ var render = function() {
     },
     [
       _c("span", {
-        staticClass: "spinner-border spinner-border-lg text-light"
+        staticClass: "spinner-border spinner-border-lg text-primary"
       }),
       _vm._v(" "),
-      _c("span", { staticClass: "my-3 text-light" }, [_vm._v(_vm._s(_vm.text))])
+      _c("strong", { staticClass: "my-3 text-dark" }, [
+        _vm._v(_vm._s(_vm.text))
+      ])
     ]
   )
 }
@@ -2495,9 +2508,9 @@ var render = function() {
             _vm._v("Round "),
             _c("strong", [
               _vm._v(
-                _vm._s(_vm.contest.finishedRounds + 1) +
+                _vm._s(_vm.model.finishedRounds + 1) +
                   "/" +
-                  _vm._s(_vm.contest.totalRounds)
+                  _vm._s(_vm.model.totalRounds)
               )
             ])
           ]),
@@ -2515,6 +2528,7 @@ var render = function() {
       _vm._v(" "),
       _vm.activeRound
         ? _c("round", {
+            key: _vm.activeRound.id,
             ref: "roundComponent",
             attrs: { round: _vm.activeRound },
             on: { evaluate: _vm.processEvaludatedRound }
@@ -2588,7 +2602,7 @@ var render = function() {
                         }
                       }
                     },
-                    [_vm._v("Next Round")]
+                    [_vm._v(_vm._s(_vm.nextRoundButtonText))]
                   )
             ]
           ),
@@ -2660,8 +2674,13 @@ var render = function() {
                     )
               ])
             : _c("contest", {
+                key: _vm.contestComponentKey,
                 ref: "contestComponent",
-                attrs: { contest: _vm.contest }
+                attrs: { contest: _vm.contest },
+                on: {
+                  evaluate: _vm.processEvaluation,
+                  finish: _vm.finishContest
+                }
               })
         ],
         1
@@ -15117,6 +15136,7 @@ var ContestViewModel = /*#__PURE__*/function () {
   _createClass(ContestViewModel, null, [{
     key: "build",
     value: function build(obj) {
+      if (!obj) return null;
       return new ContestViewModel(obj);
     }
   }]);

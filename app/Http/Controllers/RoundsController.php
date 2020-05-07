@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Classes\Contests\ContestViewModel;
 use App\Classes\Contests\RoundViewModel;
 use App\Classes\Rounds\RoundUtils;
 use Illuminate\Http\Request;
@@ -14,6 +15,13 @@ class RoundsController extends Controller
         $sessionId = $this->getSessionIdFromHeader();
         $round = RoundUtils::validateBySessionId($request->roundId, $sessionId);
         $round = RoundUtils::startRound($round);
+        $round->refresh();
+        $round->loadMissing([
+            'contest',
+            'genre',
+            'judges',
+            'contestants.genres'
+        ]);
         return response()->json(RoundViewModel::build($round));
     }
 
@@ -29,6 +37,7 @@ class RoundsController extends Controller
             'rounds.contestants',
             'contestants'
         ]);
-        return response()->json($contest);
+        $contestViewModel = ContestViewModel::build($contest);
+        return response()->json($contestViewModel);
     }
 }
