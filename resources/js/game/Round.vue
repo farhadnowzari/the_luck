@@ -12,9 +12,10 @@
                 <div :key="index" class="col-3 p-3 d-flex align-items-center justify-content-center flex-column" v-for="(contestant, index) in model.contestants">
                     <i class="fa fa-user fa-2x text-muted" title="Contestant"></i>
                     <strong class="d-flex align-items-center mt-1">
-                        <span class="mr-1">{{contestant.name}}</span>
-                        <i class="fa fa-frown text-warning" title="Sick" v-if="contestant.sick"></i>
+                        <span class="mr-1">{{`${contestant.name}#${contestant.id}`}}</span>
+                        <i class="fa fa-frown text-danger" title="Sick" v-if="contestant.sick"></i>
                     </strong>
+                    <span><i class="fa fa-star text-warning"></i> {{contestant.score}}</span>
                 </div>
             </div>
         </div>

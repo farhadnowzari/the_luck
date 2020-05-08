@@ -569,6 +569,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 
 
@@ -2749,7 +2750,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "modal-header" }, [
-      _c("h5", { staticClass: "modal-title" }, [_vm._v("Details")]),
+      _c("h5", { staticClass: "modal-title" }, [_vm._v("Contestants")]),
       _vm._v(" "),
       _c(
         "button",
@@ -3086,17 +3087,22 @@ var render = function() {
                   { staticClass: "d-flex align-items-center mt-1" },
                   [
                     _c("span", { staticClass: "mr-1" }, [
-                      _vm._v(_vm._s(contestant.name))
+                      _vm._v(_vm._s(contestant.name + "#" + contestant.id))
                     ]),
                     _vm._v(" "),
                     contestant.sick
                       ? _c("i", {
-                          staticClass: "fa fa-frown text-warning",
+                          staticClass: "fa fa-frown text-danger",
                           attrs: { title: "Sick" }
                         })
                       : _vm._e()
                   ]
-                )
+                ),
+                _vm._v(" "),
+                _c("span", [
+                  _c("i", { staticClass: "fa fa-star text-warning" }),
+                  _vm._v(" " + _vm._s(contestant.score))
+                ])
               ]
             )
           }),
