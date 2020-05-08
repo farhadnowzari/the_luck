@@ -1,6 +1,8 @@
 @extends('layouts.main')
 @section('content')
-    <div class="h-100 d-flex align-items-center" id="game-app">
+    <div class="container-fluid py-4">
+        <div id="game-app">
+        </div>
     </div>
 @endsection
 

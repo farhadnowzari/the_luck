@@ -1,5 +1,5 @@
 <template>
-    <div class="d-flex align-items-center h-100">
+    <div>
         <div class="container px-0 rounded shadow-sm bg-white mw-md">
             <div class="w-100 border-bottom d-flex align-items-center py-2 px-3">
                 <h5 class="mb-0 mr-auto">Contests</h5>
@@ -8,7 +8,7 @@
                 <button @click="forceMainMenu = false" class="btn btn-primary" type="button" v-if="forceMainMenu">Resume Contest</button>
             </div>
             <div v-if="contest === null || forceMainMenu">
-                <div class="d-flex align-items-center justify-content-center flex-column w-100 my-5" v-if="noOldContests">
+                <div class="d-flex align-items-center justify-content-center flex-column w-100 my-5 py-3" v-if="noOldContests">
                     <img class="img-fluid mw-xs" src="images/not_found_cute.png" alt="not_found">
                     <p>There is no contest available for you, please start a new contest by pressing the button below</p>
                     <button @click="createContest()" class="btn btn-primary" type="button">New Contest!</button>
