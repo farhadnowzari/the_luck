@@ -13,6 +13,13 @@ The project is tested with IIS 10 which explains the web.config in public folder
 #### Install Packages
 <code>npm run build</code>
 
+#### Database migration
+
+```
+php artisan migrate
+php artisan db:seed
+```
+
 ### .env file example
 ```
 APP_NAME="The Luck"
