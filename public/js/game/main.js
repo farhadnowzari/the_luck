@@ -244,6 +244,61 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/game/ContestRecord.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/game/ContestRecord.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'contest-record',
+  props: {
+    contest: {
+      type: Object,
+      required: true
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/game/Main.vue?vue&type=script&lang=js&":
 /*!*********************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/game/Main.vue?vue&type=script&lang=js& ***!
@@ -256,8 +311,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _Contest__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Contest */ "./resources/js/game/Contest.vue");
-/* harmony import */ var _components_loader__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/loader */ "./resources/js/components/loader.vue");
-/* harmony import */ var _ContestViewModel__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ContestViewModel */ "./resources/js/game/ContestViewModel.js");
+/* harmony import */ var _ContestRecord__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ContestRecord */ "./resources/js/game/ContestRecord.vue");
+/* harmony import */ var _components_loader__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/loader */ "./resources/js/components/loader.vue");
+/* harmony import */ var _ContestViewModel__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ContestViewModel */ "./resources/js/game/ContestViewModel.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -305,11 +361,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 
+
 var SESSION_ID = window.theLuck.get('sessionId');
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     Contest: _Contest__WEBPACK_IMPORTED_MODULE_1__["default"],
-    loader: _components_loader__WEBPACK_IMPORTED_MODULE_2__["default"]
+    ContestRecord: _ContestRecord__WEBPACK_IMPORTED_MODULE_2__["default"],
+    loader: _components_loader__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   computed: {
     noOldContests: function noOldContests() {
@@ -399,7 +457,7 @@ var SESSION_ID = window.theLuck.get('sessionId');
           url: route('api.contests.get_paused_contest')
         }).then(function (response) {
           _this4.contest = response.data.length === 0 || !response.data ? null : response.data;
-          _this4.contest = _ContestViewModel__WEBPACK_IMPORTED_MODULE_3__["ContestViewModel"].build(_this4.contest);
+          _this4.contest = _ContestViewModel__WEBPACK_IMPORTED_MODULE_4__["ContestViewModel"].build(_this4.contest);
           _this4.loading = false;
         })["catch"](function (e) {
           console.error(e);
@@ -430,7 +488,7 @@ var SESSION_ID = window.theLuck.get('sessionId');
       }))();
     },
     processEvaluation: function processEvaluation(contest) {
-      this.contest = _ContestViewModel__WEBPACK_IMPORTED_MODULE_3__["ContestViewModel"].build(contest);
+      this.contest = _ContestViewModel__WEBPACK_IMPORTED_MODULE_4__["ContestViewModel"].build(contest);
       this.contestComponentKey += 1;
     }
   },
@@ -561,7 +619,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         method: 'post'
       }).then(function (response) {
         _this2.model = _RoundViewModel__WEBPACK_IMPORTED_MODULE_2__["RoundViewModel"].build(response.data);
-        console.log(_this2.model);
         _this2.loading = false;
       })["catch"](function (e) {
         _this2.loading = false;
@@ -2545,6 +2602,149 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/game/ContestRecord.vue?vue&type=template&id=4072ee06&":
+/*!**********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/game/ContestRecord.vue?vue&type=template&id=4072ee06& ***!
+  \**********************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("div", { staticClass: "row border-bottom py-2 mx-0" }, [
+      _c("div", { staticClass: "col-2" }, [
+        _vm._v(_vm._s(_vm.contest.winnerName))
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-2" }, [
+        _vm._v(_vm._s(_vm.contest.highestScore))
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col" }, [
+        _vm._v(_vm._s(_vm.contest.createdAt))
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-link p-0",
+            attrs: {
+              "data-toggle": "modal",
+              "data-target": "#contest-details-modal-" + _vm.contest.id,
+              type: "button"
+            }
+          },
+          [_vm._v("Details")]
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "contest-details-modal-" + _vm.contest.id,
+          tabindex: "-1",
+          role: "dialog"
+        }
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "modal-dialog", attrs: { role: "document" } },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(0),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "modal-body p-0" },
+                _vm._l(_vm.contest.contestants, function(contestant, index) {
+                  return _c(
+                    "div",
+                    {
+                      key: index,
+                      staticClass: "row mx-0 py-2",
+                      class: {
+                        "border-bottom":
+                          index < _vm.contest.contestants.length - 1
+                      }
+                    },
+                    [
+                      _c("div", { staticClass: "col-6" }, [
+                        _vm._v(_vm._s(contestant.name))
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-6" }, [
+                        _vm._v(_vm._s(contestant.score))
+                      ])
+                    ]
+                  )
+                }),
+                0
+              ),
+              _vm._v(" "),
+              _vm._m(1)
+            ])
+          ]
+        )
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c("h5", { staticClass: "modal-title" }, [_vm._v("Details")]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-footer" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-outline-secondary",
+          attrs: { type: "button", "data-dismiss": "modal" }
+        },
+        [_vm._v("Close")]
+      )
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/game/Main.vue?vue&type=template&id=54d9f248&":
 /*!*************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/game/Main.vue?vue&type=template&id=54d9f248& ***!
@@ -2652,22 +2852,10 @@ var render = function() {
                         _vm._m(0),
                         _vm._v(" "),
                         _vm._l(_vm.oldContests, function(contest, index) {
-                          return _c(
-                            "div",
-                            {
-                              key: index,
-                              staticClass: "row border-bottom mx-0 py-2"
-                            },
-                            [
-                              _c("div", { staticClass: "col-3" }),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "col-3" }),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "col" }, [
-                                _vm._v(_vm._s(contest.createdAt))
-                              ])
-                            ]
-                          )
+                          return _c("contest-record", {
+                            key: index,
+                            attrs: { contest: contest }
+                          })
                         })
                       ],
                       2
@@ -2697,11 +2885,13 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "row mx-0 border-bottom bg-light py-2" }, [
-      _c("div", { staticClass: "col-3" }, [_vm._v("Winner")]),
+      _c("div", { staticClass: "col-2" }, [_vm._v("Winner")]),
       _vm._v(" "),
-      _c("div", { staticClass: "col-3" }, [_vm._v("High score")]),
+      _c("div", { staticClass: "col-2" }, [_vm._v("High score")]),
       _vm._v(" "),
-      _c("div", { staticClass: "col" }, [_vm._v("Created At")])
+      _c("div", { staticClass: "col" }, [_vm._v("Created At")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col" })
     ])
   }
 ]
@@ -15097,6 +15287,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/game/ContestRecord.vue":
+/*!*********************************************!*\
+  !*** ./resources/js/game/ContestRecord.vue ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ContestRecord_vue_vue_type_template_id_4072ee06___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ContestRecord.vue?vue&type=template&id=4072ee06& */ "./resources/js/game/ContestRecord.vue?vue&type=template&id=4072ee06&");
+/* harmony import */ var _ContestRecord_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ContestRecord.vue?vue&type=script&lang=js& */ "./resources/js/game/ContestRecord.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _ContestRecord_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ContestRecord_vue_vue_type_template_id_4072ee06___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ContestRecord_vue_vue_type_template_id_4072ee06___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/game/ContestRecord.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/game/ContestRecord.vue?vue&type=script&lang=js&":
+/*!**********************************************************************!*\
+  !*** ./resources/js/game/ContestRecord.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ContestRecord_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./ContestRecord.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/game/ContestRecord.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ContestRecord_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/game/ContestRecord.vue?vue&type=template&id=4072ee06&":
+/*!****************************************************************************!*\
+  !*** ./resources/js/game/ContestRecord.vue?vue&type=template&id=4072ee06& ***!
+  \****************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ContestRecord_vue_vue_type_template_id_4072ee06___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./ContestRecord.vue?vue&type=template&id=4072ee06& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/game/ContestRecord.vue?vue&type=template&id=4072ee06&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ContestRecord_vue_vue_type_template_id_4072ee06___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ContestRecord_vue_vue_type_template_id_4072ee06___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/game/ContestViewModel.js":
 /*!***********************************************!*\
   !*** ./resources/js/game/ContestViewModel.js ***!
@@ -15125,6 +15384,8 @@ var ContestViewModel = /*#__PURE__*/function () {
     this.totalRounds = obj.totalRounds;
     this.finishedRounds = obj.finishedRounds;
     this.createdAt = obj.createdAt;
+    this.winnerName = obj.winnerName;
+    this.highestScore = obj.highestScore;
     this.rounds = obj.rounds.map(function (round) {
       return _RoundViewModel__WEBPACK_IMPORTED_MODULE_0__["RoundViewModel"].build(round);
     });

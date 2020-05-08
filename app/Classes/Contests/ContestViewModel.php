@@ -13,6 +13,12 @@ class ContestViewModel {
     public $finishedRounds;
     /** @var string $createdAt */
     public $createdAt;
+
+    /** @var float $highestScore */
+    public $highestScore;
+    /** @var string $winnerName */
+    public $winnerName;
+
     /** @var \Illuminate\Support\Collection $rounds */
     public $rounds;
     /** @var \Illuminate\Support\Collection $contestants */
@@ -23,9 +29,10 @@ class ContestViewModel {
         $this->id = $model->id;
         $this->totalRounds = $model->total_rounds;
         $this->finishedRounds = $model->finished_rounds;
-        $this->createdAt = $model->created_at;
+        $this->createdAt = $model->created_at->format('Y-m-d H:i:s');
         $this->initRounds($model);
         $this->initContestants($model);
+        $this->setWinnerScore();
         
     }
 
@@ -39,15 +46,23 @@ class ContestViewModel {
             ->sortBy('id')
             ->map(function($round) {
                 return RoundViewModel::build($round);
-            });
+            })
+            ->values();
     }
 
     private function initContestants(Contest $model): void {
         $this->contestants = $model
             ->contestants
-            ->sortBy('id')
+            ->sortByDesc('score')
             ->map(function($contestant) {
                 return ContestantViewModel::build($contestant);
-            });
+            })
+            ->values();
+    }
+
+    private function setWinnerScore() {
+        $winner = $this->contestants->sortByDesc('score')->first();
+        $this->winnerName = $winner->name;
+        $this->highestScore = $winner->score;
     }
 }

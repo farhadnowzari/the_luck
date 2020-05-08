@@ -19,7 +19,7 @@ class ScoreUtils {
         $contestantScore = $randomScore * $genreStrengthScore;
         if($sick) {
             $contestantScore = $contestantScore / 2;
-            $contestantScore = round($contestantScore, 1);
+            $contestantScore = round($contestantScore, 2);
         }
         return $contestantScore;
     }
@@ -27,7 +27,8 @@ class ScoreUtils {
     public static function calculateJudgementScore(float $rawScore, Genre $genre, Collection $judges, Contestant $contestant): float {
         $score = 0;
         foreach($judges as $judge) {
-            $score += JudgeUtils::getJudgeScore($judge, $genre, $rawScore, $contestant);
+            $judgeScore = JudgeUtils::getJudgeScore($judge, $genre, $rawScore, $contestant);
+            $score += $judgeScore;
         }
         return $score;
     }

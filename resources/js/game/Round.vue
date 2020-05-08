@@ -67,7 +67,6 @@ export default {
             })
             .then(response => {
                 this.model = RoundViewModel.build(response.data);
-                console.log(this.model);
                 this.loading = false;
             })
             .catch(e => {

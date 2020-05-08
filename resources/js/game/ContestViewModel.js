@@ -8,6 +8,9 @@ export class ContestViewModel {
         this.finishedRounds = obj.finishedRounds;
         this.createdAt = obj.createdAt;
 
+        this.winnerName = obj.winnerName;
+        this.highestScore = obj.highestScore;
+
         this.rounds = obj.rounds.map((round) => {
             return RoundViewModel.build(round);
         });

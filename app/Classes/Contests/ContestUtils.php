@@ -29,6 +29,14 @@ class ContestUtils
         'Baran',
         'Dimitri',
         'Dastan',
+        'Frank',
+        'Joey',
+        'Ross',
+        'Monica',
+        'Rachel',
+        'Phoebe',
+        'Daniel',
+        'Sepehr',
     ];
 
     public static function contestantGetsSick(): bool {

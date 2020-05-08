@@ -41,12 +41,14 @@ class JudgeUtils {
     }
 
     private static function honestJudgeScore(float $rawScore): float {
-        $remaning = $rawScore % 10;
-        $quotient = $rawScore / 10;
-        if($remaning === 0) {
-            return $quotient;
+        $quotient = strval($rawScore / 10);
+        $integer = explode('.', $quotient)[0];
+        $decimal = explode('.', $quotient)[1];
+        if(intval($decimal === 0)) {
+            return intval($integer) + 1;
+        } else {
+            return intval($integer);
         }
-        return intval($quotient) + 1;
     }
 
     private static function meanJudgeScore(float $rawScore): float {

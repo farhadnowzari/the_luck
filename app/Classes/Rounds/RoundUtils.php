@@ -24,7 +24,7 @@ class RoundUtils {
         return $round;
     }
 
-    public static function evaludateRound(Round $round): Round {
+    public static function evaluateRound(Round $round): Round {
         $round = DB::transaction(function () use($round) {
             $round->state = RoundState::FINISHED;
             $round->save();
@@ -41,6 +41,8 @@ class RoundUtils {
                     'final_score' => $finalScore,
                     'sick' => $sick,
                 ];
+                $contestant->score += $finalScore;
+                $contestant->save();
             }
             $round->contestants()->sync($contestants);
             return $round;

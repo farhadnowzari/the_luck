@@ -14,15 +14,15 @@
                 </div>
                 <div v-else>
                     <div class="row mx-0 border-bottom bg-light py-2">
-                        <div class="col-3">Winner</div>
-                        <div class="col-3">High score</div>
+                        <div class="col-2">Winner</div>
+                        <div class="col-2">High score</div>
                         <div class="col">Created At</div>
+                        <div class="col"></div>
                     </div>
-                    <div :key="index" class="row border-bottom mx-0 py-2" v-for="(contest, index) in oldContests">
-                        <div class="col-3"></div>
-                        <div class="col-3"></div>
-                        <div class="col">{{contest.createdAt}}</div>
-                    </div>
+                    <contest-record 
+                        :contest="contest" 
+                        :key="index" 
+                        v-for="(contest, index) in oldContests"></contest-record>
                 </div>
             </div>
             <contest 
@@ -38,12 +38,14 @@
 </template>
 <script>
 import Contest from './Contest';
+import ContestRecord from './ContestRecord';
 import loader from '../components/loader';
 import { ContestViewModel } from './ContestViewModel';
 const SESSION_ID = window.theLuck.get('sessionId');
 export default {
     components: {
         Contest,
+        ContestRecord,
         loader
     },
     computed: {
