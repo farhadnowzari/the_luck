@@ -2,9 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Classes\Contests\ContestStorage;
-use Illuminate\Http\Request;
-
 class IndexController extends Controller
 {
     use SessionHelper;
