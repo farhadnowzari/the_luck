@@ -30,7 +30,7 @@ class JudgeUtils {
         return 0;
     }
 
-    private static function friendlyJudgeScore(Judge $judge, float $rawScore, Contestant $contestant): float {
+    public static function friendlyJudgeScore(Judge $judge, float $rawScore, Contestant $contestant): float {
         if($contestant->pivot->sick) {
             return $judge->bonus_point;
         }
@@ -40,27 +40,27 @@ class JudgeUtils {
         return 7;
     }
 
-    private static function honestJudgeScore(float $rawScore): float {
+    public static function honestJudgeScore(float $rawScore): float {
         $quotient = strval($rawScore / 10);
         $integer = explode('.', $quotient)[0];
         $decimal = explode('.', $quotient)[1];
-        if(intval($decimal === 0)) {
+        if(intval($decimal) !== 0) {
             return intval($integer) + 1;
         } else {
             return intval($integer);
         }
     }
 
-    private static function meanJudgeScore(float $rawScore): float {
+    public static function meanJudgeScore(float $rawScore): float {
         if($rawScore < 90) return 2;
         return 10;
     }
 
-    private static function randomJudgeScore(): float {
+    public static function randomJudgeScore(): float {
         return ContestUtils::getRandomScore();
     }
 
-    private static function rockJudgeScore(Genre $genre, float $rawScore): float {
+    public static function rockJudgeScore(Genre $genre, float $rawScore): float {
         if($genre->type !== GenreType::ROCK) {
             return self::randomJudgeScore();
         }
