@@ -11,7 +11,9 @@
 The project is tested with IIS 10 which explains the web.config in public folder <br>
 
 #### Install Packages
-<code>npm run build</code>
+```
+npm run build
+```
 
 #### Database migration
 
