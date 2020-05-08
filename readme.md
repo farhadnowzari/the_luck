@@ -54,14 +54,14 @@ SICKNESS_PROBABILITY=5
 
 ### Image #1
 When there is no contest available for the current `session`.
-![Image of Yaktocat](https://github.com/farhadnowzari/the_luck/blob/master/blank_menu.png?raw=true)
+![Image of Yaktocat](https://github.com/farhadnowzari/the_luck/blob/master/blank_menu_1.png?raw=true)
 ### Image #2
 Image #2 shows how a contest looks like with 10 contestants(Its adjudtable from the env file) <br>
 `Note`: if the contestant gets sick a red frown face appears near their name.
-![Image of Yaktocat](https://github.com/farhadnowzari/the_luck/blob/master/contest.png?raw=true)
+![Image of Yaktocat](https://github.com/farhadnowzari/the_luck/blob/master/contest_1.png?raw=true)
 ### Image #3
 Image #3 shows a main menu when the current `session` at least has one finished contest.
-![Image of Yaktocat](https://github.com/farhadnowzari/the_luck/blob/master/filled_menu.png?raw=true)
+![Image of Yaktocat](https://github.com/farhadnowzari/the_luck/blob/master/filled_menu_1.png?raw=true)
 
 ## Short description
 Normally I would also disable Lazy loading because it can cost performance issues. but instead I just tried to eager load everything that I needed in my ORM queries, but its better that it gets disabled so no one in a team mistakenly loads a relation in a for loop, 'n' time(s).
