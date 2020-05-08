@@ -51,6 +51,28 @@
                 ref="contestComponent" 
                 v-else></contest>
         </div>
+        <div class="modal fade" id="last-contest-winner-modal" tabindex="-1" v-if="lastContest">
+            <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Winner</h5>
+                        <button class="close" type="button" data-dismiss='modal'>
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="w-100 d-flex align-items-center justify-content-center flex-column">
+                            <i class="fa fa-trophy fa-3x text-warning"></i>
+                            <h5 class="mt-3">{{lastContest.winnerName}}</h5>
+                            <strong>{{lastContest.highestScore}}</strong>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button data-dismiss="modal" class="btn btn-outline-secondary" type="button">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <loader v-if="loading" text="Please wait"></loader>
     </div>
 </template>
@@ -85,7 +107,9 @@ export default {
             contest: null,
             contestComponentKey: 1,
             forceMainMenu: false,
-            winnerOfAllTimes: null
+            winnerOfAllTimes: null,
+            lastContest: null,
+            lastContestWinnerModal: null
         }
     },
     methods: {
@@ -106,9 +130,21 @@ export default {
 
         },
         async finishContest() {
+            this.lastContest = ContestViewModel.build(this.contest);
             this.contest = null;
             this.oldContests = [];
             this.loadMenu();
+        },
+        initialWinnerModal() {
+            if(this.lastContestWinnerModal) {
+                this.lastContestWinnerModal.modal('show');
+            } else {
+                var $modal = $('#last-contest-winner-modal');
+                if($modal && $modal.length > 0) {
+                    this.lastContestWinnerModal = $modal;
+                    this.lastContestWinnerModal.modal('show');
+                }
+            }
         },
         retrieveOngoingContest() {
             this.loading = true;
@@ -145,6 +181,7 @@ export default {
                     this.contest = response.data.length === 0 || !response.data ? null : response.data;
                     this.contest = ContestViewModel.build(this.contest);
                     this.loading = false;
+                    this.initialWinnerModal();
                 })
                 .catch(e => {
                     console.error(e);
