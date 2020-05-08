@@ -418,7 +418,7 @@ var SESSION_ID = window.theLuck.get('sessionId');
     nextRoundButtonText: function nextRoundButtonText() {
       if (this.contest) {
         var remainingRounds = this.contest.totalRounds - this.contest.finishedRounds - 1;
-        return remainingRounds === 1 ? 'Got to Final!' : remainingRounds === 0 ? 'Finish' : 'Next Round';
+        return remainingRounds === 1 ? 'Got to Final!' : remainingRounds === 0 ? 'Finish contest' : 'Evaluate round';
       }
 
       return 'N/A';

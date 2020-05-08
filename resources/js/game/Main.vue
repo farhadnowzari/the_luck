@@ -95,7 +95,7 @@ export default {
         nextRoundButtonText() {
             if(this.contest) {
                 const remainingRounds = (this.contest.totalRounds - this.contest.finishedRounds) - 1;
-                return remainingRounds === 1 ? 'Got to Final!' : remainingRounds === 0 ? 'Finish' : 'Next Round';
+                return remainingRounds === 1 ? 'Got to Final!' : remainingRounds === 0 ? 'Finish contest' : 'Evaluate round';
             }
             return 'N/A';
         }
