@@ -59,3 +59,6 @@ Image #2 shows how a contest looks like with 6 contestants(Its adjudtable from t
 ### Image #3
 Image #3 shows a main menu when the current `session` at least has one finished contest.
 ![Image of Yaktocat](https://github.com/farhadnowzari/the_luck/blob/master/filled_menu.png?raw=true)
+
+## Short description
+Normally I would also disable Lazy loading because it can cost performance issues. but instead I just tried to eager load everything that I needed in my ORM queries, but its better that it gets disabled so no one in a team mistakenly loads a relation in a for loop, 'n' time(s).
