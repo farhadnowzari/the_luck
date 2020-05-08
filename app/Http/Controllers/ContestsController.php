@@ -35,8 +35,17 @@ class ContestsController extends Controller
             ->get()
             ->map(function($contest) {
                 return ContestViewModel::build($contest);
-            });
-        return response()->json($contests);
+            })
+            ->values();
+        $highestScoreContest = $contests->sortByDesc('highestScore')->first();
+        return response()->json([
+            'contests' => $contests,
+            'winnerOfAllTimes' => [
+                'winnerName' => $highestScoreContest->winnerName,
+                'score' => $highestScoreContest->highestScore,
+                'createdAt' => $highestScoreContest->createdAt 
+            ]
+        ]);
     }
 
     public function retrieveOpenContest(Request $request) {

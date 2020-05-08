@@ -24,6 +24,22 @@
                         :contest="contest" 
                         :key="index" 
                         v-for="(contest, index) in oldContests"></contest-record>
+                    <div class="d-block" v-if="winnerOfAllTimes && oldContests.length > 1">
+                        <div class="py-2 px-3 bg-light border-bottom">
+                            <i class="fa fa-user-crown"></i> Winner of all times
+                        </div>
+                        <div class="row mx-0 py-2" v-if="winnerOfAllTimes">
+                            <div class="col-2">
+                                {{winnerOfAllTimes.winnerName}}
+                            </div>
+                            <div class="col-2">
+                                {{winnerOfAllTimes.score}}
+                            </div>
+                            <div class="col">
+                                {{winnerOfAllTimes.createdAt}}
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <contest 
@@ -68,7 +84,8 @@ export default {
             oldContests: [],
             contest: null,
             contestComponentKey: 1,
-            forceMainMenu: false
+            forceMainMenu: false,
+            winnerOfAllTimes: null
         }
     },
     methods: {
@@ -118,7 +135,8 @@ export default {
                 url: route('api.contests.list')
             })
             .then(response => {
-                this.oldContests = response.data;
+                this.oldContests = response.data.contests;
+                this.winnerOfAllTimes = response.data.winnerOfAllTimes
                 axios({
                     method: 'get',
                     url: route('api.contests.get_paused_contest')

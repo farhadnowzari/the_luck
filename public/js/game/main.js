@@ -362,6 +362,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -392,7 +408,8 @@ var SESSION_ID = window.theLuck.get('sessionId');
       oldContests: [],
       contest: null,
       contestComponentKey: 1,
-      forceMainMenu: false
+      forceMainMenu: false,
+      winnerOfAllTimes: null
     };
   },
   methods: {
@@ -459,7 +476,8 @@ var SESSION_ID = window.theLuck.get('sessionId');
         method: 'get',
         url: route('api.contests.list')
       }).then(function (response) {
-        _this4.oldContests = response.data;
+        _this4.oldContests = response.data.contests;
+        _this4.winnerOfAllTimes = response.data.winnerOfAllTimes;
         axios({
           method: 'get',
           url: route('api.contests.get_paused_contest')
@@ -2900,7 +2918,45 @@ var render = function() {
                             key: index,
                             attrs: { contest: contest }
                           })
-                        })
+                        }),
+                        _vm._v(" "),
+                        _vm.winnerOfAllTimes && _vm.oldContests.length > 1
+                          ? _c("div", { staticClass: "d-block" }, [
+                              _vm._m(1),
+                              _vm._v(" "),
+                              _vm.winnerOfAllTimes
+                                ? _c("div", { staticClass: "row mx-0 py-2" }, [
+                                    _c("div", { staticClass: "col-2" }, [
+                                      _vm._v(
+                                        "\n                            " +
+                                          _vm._s(
+                                            _vm.winnerOfAllTimes.winnerName
+                                          ) +
+                                          "\n                        "
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("div", { staticClass: "col-2" }, [
+                                      _vm._v(
+                                        "\n                            " +
+                                          _vm._s(_vm.winnerOfAllTimes.score) +
+                                          "\n                        "
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("div", { staticClass: "col" }, [
+                                      _vm._v(
+                                        "\n                            " +
+                                          _vm._s(
+                                            _vm.winnerOfAllTimes.createdAt
+                                          ) +
+                                          "\n                        "
+                                      )
+                                    ])
+                                  ])
+                                : _vm._e()
+                            ])
+                          : _vm._e()
                       ],
                       2
                     )
@@ -2939,6 +2995,15 @@ var staticRenderFns = [
       _c("div", { staticClass: "col" }, [_vm._v("Created At")]),
       _vm._v(" "),
       _c("div", { staticClass: "col" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "py-2 px-3 bg-light border-bottom" }, [
+      _c("i", { staticClass: "fa fa-user-crown" }),
+      _vm._v(" Winner of all times\n                    ")
     ])
   }
 ]
