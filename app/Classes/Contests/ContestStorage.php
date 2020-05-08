@@ -53,6 +53,8 @@ class ContestStorage {
         $activeGenres = Genre::where('active', true)->get()->shuffle();
         $this->contest->total_rounds = $activeGenres->count();
         $this->contest->save();
+        $judgesPerRound = config('the_luck.judges_per_round');
+        $judges = Judge::all()->shuffle()->take($judgesPerRound);
         foreach($activeGenres as $activeGenre) {
             $round = new Round();
             $round->contest_id = $this->contest->id;
@@ -60,7 +62,9 @@ class ContestStorage {
             $round->state = RoundState::NOT_STARTED;
             $round->save();
             $round->loadMissing('judges');
-            $this->assignJudgesToRound($round);
+            foreach($judges as $judge) {
+                $round->judges()->attach($judge->id);
+            }
         }
     }
 
@@ -78,6 +82,11 @@ class ContestStorage {
         }
     }
 
+    /**
+     * This function was used to assign random judges to each round after reading the test again,
+     * I realized that judges are selected randomly per contest and not per round.
+     */
+    /*
     private function assignJudgesToRound(Round $round): void {
         $judgesPerRound = config('the_luck.judges_per_round');
         $judges = Judge::all()->shuffle()->take($judgesPerRound);
@@ -85,6 +94,7 @@ class ContestStorage {
             $round->judges()->attach($judge->id);
         }
     }
+    */
 
     private function setContestantsRoundsStrengthPoint(): void {
         $rounds = $this->contest->rounds;
