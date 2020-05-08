@@ -10,17 +10,14 @@
 ### Server
 The project is tested with IIS 10 which explains the web.config in public folder <br>
 
-### Installation commands
+### Installation steps
 ```
-composer install
-npm install
-```
-create .env file from sample
-
-```
-php artisan key:generate
-php artisan migrate
-php artisan db:seed
+- composer install
+- npm install
+- create .env file from sample
+- php artisan key:generate
+- php artisan migrate
+- php artisan db:seed
 ```
 
 ### .env file example
@@ -47,7 +44,12 @@ CONTESTANTS_PER_CONTEST=10
 JUDGES_PER_ROUND=3
 SICKNESS_PROBABILITY=5
 ```
-
+## Config
+1. <b>Number of contestants per contest:</b> this value is adjustable from .env file
+2. <b>Number of judges per contest:</b> this value is adjustable from .env file
+3. <b>Sickness probability:</b> this value is adjustable from .env file
+4. <b>Number of rounds per contest:</b> You can adjust this value by simply toggle the active field in genres table
+5. <b>Bonus point:</b> The bonus point is just usable by FriendlyJudge but you can change for any judges if its needed for future changes. you can set the value in Judges table.
 ## Images
 
 ### Image #1
