@@ -10,14 +10,15 @@
 ### Server
 The project is tested with IIS 10 which explains the web.config in public folder <br>
 
-#### Install Packages
+### Installation commands
 ```
-npm run build
+composer install
+npm install
 ```
+create .env file from sample
 
-#### Database migration
-
 ```
+php artisan key:generate
 php artisan migrate
 php artisan db:seed
 ```
@@ -26,7 +27,7 @@ php artisan db:seed
 ```
 APP_NAME="The Luck"
 APP_ENV=local
-APP_KEY="use php artisan key:generate to generate the key"
+APP_KEY=
 APP_DEBUG=true
 APP_URL=http://localhost
 
