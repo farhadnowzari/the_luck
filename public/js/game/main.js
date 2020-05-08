@@ -378,6 +378,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -409,7 +431,9 @@ var SESSION_ID = window.theLuck.get('sessionId');
       contest: null,
       contestComponentKey: 1,
       forceMainMenu: false,
-      winnerOfAllTimes: null
+      winnerOfAllTimes: null,
+      lastContest: null,
+      lastContestWinnerModal: null
     };
   },
   methods: {
@@ -437,18 +461,31 @@ var SESSION_ID = window.theLuck.get('sessionId');
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
+                _this2.lastContest = _ContestViewModel__WEBPACK_IMPORTED_MODULE_4__["ContestViewModel"].build(_this2.contest);
                 _this2.contest = null;
                 _this2.oldContests = [];
 
                 _this2.loadMenu();
 
-              case 3:
+              case 4:
               case "end":
                 return _context.stop();
             }
           }
         }, _callee);
       }))();
+    },
+    initialWinnerModal: function initialWinnerModal() {
+      if (this.lastContestWinnerModal) {
+        this.lastContestWinnerModal.modal('show');
+      } else {
+        var $modal = $('#last-contest-winner-modal');
+
+        if ($modal && $modal.length > 0) {
+          this.lastContestWinnerModal = $modal;
+          this.lastContestWinnerModal.modal('show');
+        }
+      }
     },
     retrieveOngoingContest: function retrieveOngoingContest() {
       var _this3 = this;
@@ -485,6 +522,8 @@ var SESSION_ID = window.theLuck.get('sessionId');
           _this4.contest = response.data.length === 0 || !response.data ? null : response.data;
           _this4.contest = _ContestViewModel__WEBPACK_IMPORTED_MODULE_4__["ContestViewModel"].build(_this4.contest);
           _this4.loading = false;
+
+          _this4.initialWinnerModal();
         })["catch"](function (e) {
           console.error(e);
           _this4.loading = false;
@@ -2805,7 +2844,6 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "d-flex align-items-center h-100" },
     [
       _c(
         "div",
@@ -2877,7 +2915,7 @@ var render = function() {
                       "div",
                       {
                         staticClass:
-                          "d-flex align-items-center justify-content-center flex-column w-100 my-5"
+                          "d-flex align-items-center justify-content-center flex-column w-100 my-5 py-3"
                       },
                       [
                         _c("img", {
@@ -2978,6 +3016,55 @@ var render = function() {
         1
       ),
       _vm._v(" "),
+      _vm.lastContest
+        ? _c(
+            "div",
+            {
+              staticClass: "modal fade",
+              attrs: { id: "last-contest-winner-modal", tabindex: "-1" }
+            },
+            [
+              _c(
+                "div",
+                {
+                  staticClass: "modal-dialog modal-dialog-centered modal-sm",
+                  attrs: { role: "document" }
+                },
+                [
+                  _c("div", { staticClass: "modal-content" }, [
+                    _vm._m(2),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "modal-body" }, [
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "w-100 d-flex align-items-center justify-content-center flex-column"
+                        },
+                        [
+                          _c("i", {
+                            staticClass: "fa fa-trophy fa-3x text-warning"
+                          }),
+                          _vm._v(" "),
+                          _c("h5", { staticClass: "mt-3" }, [
+                            _vm._v(_vm._s(_vm.lastContest.winnerName))
+                          ]),
+                          _vm._v(" "),
+                          _c("strong", [
+                            _vm._v(_vm._s(_vm.lastContest.highestScore))
+                          ])
+                        ]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _vm._m(3)
+                  ])
+                ]
+              )
+            ]
+          )
+        : _vm._e(),
+      _vm._v(" "),
       _vm.loading ? _c("loader", { attrs: { text: "Please wait" } }) : _vm._e()
     ],
     1
@@ -3005,6 +3092,38 @@ var staticRenderFns = [
     return _c("div", { staticClass: "py-2 px-3 bg-light border-bottom" }, [
       _c("i", { staticClass: "fa fa-user-crown" }),
       _vm._v(" Winner of all times\n                    ")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c("h5", { staticClass: "modal-title" }, [_vm._v("Winner")]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: { type: "button", "data-dismiss": "modal" }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-footer" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-outline-secondary",
+          attrs: { "data-dismiss": "modal", type: "button" }
+        },
+        [_vm._v("Close")]
+      )
     ])
   }
 ]

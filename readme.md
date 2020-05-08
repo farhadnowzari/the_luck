@@ -56,8 +56,8 @@ SICKNESS_PROBABILITY=5
 When there is no contest available for the current `session`.
 ![Image of Yaktocat](https://github.com/farhadnowzari/the_luck/blob/master/blank_menu.png?raw=true)
 ### Image #2
-Image #2 shows how a contest looks like with 6 contestants(Its adjudtable from the env file) <br>
-`Note`: if the contestant gets sick a yellow frown face appears near their name.
+Image #2 shows how a contest looks like with 10 contestants(Its adjudtable from the env file) <br>
+`Note`: if the contestant gets sick a red frown face appears near their name.
 ![Image of Yaktocat](https://github.com/farhadnowzari/the_luck/blob/master/contest.png?raw=true)
 ### Image #3
 Image #3 shows a main menu when the current `session` at least has one finished contest.
