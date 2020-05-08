@@ -162,6 +162,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -358,6 +360,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 
 
 
@@ -387,7 +391,8 @@ var SESSION_ID = window.theLuck.get('sessionId');
       loading: false,
       oldContests: [],
       contest: null,
-      contestComponentKey: 1
+      contestComponentKey: 1,
+      forceMainMenu: false
     };
   },
   methods: {
@@ -442,6 +447,9 @@ var SESSION_ID = window.theLuck.get('sessionId');
         console.error(e);
         _this3.loading = false;
       });
+    },
+    requestMainMenu: function requestMainMenu() {
+      this.forceMainMenu = true;
     },
     loadMenu: function loadMenu() {
       var _this4 = this;
@@ -2554,6 +2562,22 @@ var render = function() {
             "border-bottom py-1 px-3 text-muted d-flex align-items-center"
         },
         [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-link p-0",
+              attrs: { type: "button" },
+              on: {
+                click: function($event) {
+                  return _vm.$emit("main-menu")
+                }
+              }
+            },
+            [_vm._v("Main Menu")]
+          ),
+          _vm._v(" "),
+          _c("span", { staticClass: "mx-2" }, [_vm._v("|")]),
+          _vm._v(" "),
           _c("span", { attrs: { title: "Contestants" } }, [
             _c("i", { staticClass: "fa fa-users" }),
             _vm._v(" " + _vm._s(_vm.totalContestants))
@@ -2791,7 +2815,10 @@ var render = function() {
                     },
                     [_vm._v("New Contest")]
                   )
-                : _c(
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.contest !== null && !_vm.forceMainMenu
+                ? _c(
                     "button",
                     {
                       staticClass: "btn btn-primary",
@@ -2804,10 +2831,27 @@ var render = function() {
                     },
                     [_vm._v(_vm._s(_vm.nextRoundButtonText))]
                   )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.forceMainMenu
+                ? _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          _vm.forceMainMenu = false
+                        }
+                      }
+                    },
+                    [_vm._v("Resume Contest")]
+                  )
+                : _vm._e()
             ]
           ),
           _vm._v(" "),
-          _vm.contest === null
+          _vm.contest === null || _vm.forceMainMenu
             ? _c("div", [
                 _vm.noOldContests
                   ? _c(
@@ -2867,7 +2911,10 @@ var render = function() {
                 attrs: { contest: _vm.contest },
                 on: {
                   evaluate: _vm.processEvaluation,
-                  finish: _vm.finishContest
+                  finish: _vm.finishContest,
+                  "main-menu": function($event) {
+                    return _vm.requestMainMenu()
+                  }
                 }
               })
         ],

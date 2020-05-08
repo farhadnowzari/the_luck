@@ -1,6 +1,8 @@
 <template>
     <div>
         <div class="border-bottom py-1 px-3 text-muted d-flex align-items-center">
+            <button @click="$emit('main-menu')" class="btn btn-link p-0" type="button">Main Menu</button>
+            <span class="mx-2">|</span>
             <span title="Contestants"><i class="fa fa-users"></i> {{totalContestants}}</span>
             <span class="mx-2">|</span>
             <span>Round <strong>{{model.finishedRounds + 1}}/{{model.totalRounds}}</strong></span>
