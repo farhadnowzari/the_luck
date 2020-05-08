@@ -42,8 +42,12 @@ class JudgeUtils {
 
     public static function honestJudgeScore(float $rawScore): float {
         $quotient = strval($rawScore / 10);
-        $integer = explode('.', $quotient)[0];
-        $decimal = explode('.', $quotient)[1];
+        $numberParts = explode('.', $quotient);
+        $integer = $numberParts[0];
+        $decimal = 0;
+        if(count($numberParts) > 1) {
+            $decimal = explode('.', $quotient)[1];
+        }
         if(intval($decimal) !== 0) {
             return intval($integer) + 1;
         } else {
