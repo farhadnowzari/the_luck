@@ -29,9 +29,11 @@ class ContestsController extends Controller
     }
 
     public function listOldContests(Request $request) {
+        $sessionId = $this->getSessionIdFromHeader();
         $contests = Contest::with(self::RELATIONS)
             ->orderBy('created_at')
             ->whereRaw('total_rounds = finished_rounds')
+            ->where('session_id', $sessionId)
             ->get()
             ->map(function($contest) {
                 return ContestViewModel::build($contest);
