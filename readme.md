@@ -2,14 +2,14 @@
 ### The InnoGames GmbH test project
 
 <b>Database:</b> PosgreSQL <br>
-<b>Backend:</b> PHP v7.2 (Laravel v6.0 LTS) <br>
+<b>Backend:</b> PHP v7.4 (Laravel v6.0 LTS) <br>
 <b>Frontend:</b> Vue.js
 
 ## Installation
 ### Server
 The project is tested with IIS 10 which explains the web.config in public folder <br>
 
-#### Packages
+#### Install Packages
 <code>npm run build</code>
 
 ### .env file example
