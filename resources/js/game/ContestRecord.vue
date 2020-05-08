@@ -5,14 +5,14 @@
             <div class="col-2">{{ contest.highestScore }}</div>
             <div class="col">{{ contest.createdAt }}</div>
             <div class="col">
-                <button data-toggle="modal" :data-target="`#contest-details-modal-${contest.id}`" class="btn btn-link p-0" type="button">Details</button>
+                <button data-toggle="modal" :data-target="`#contest-details-modal-${contest.id}`" class="btn btn-link p-0" type="button"><i class="fa fa-trophy"></i> Score board</button>
             </div>
         </div>
         <div :id="`contest-details-modal-${contest.id}`" class="modal fade" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Contestants</h5>
+                        <h5 class="modal-title">Score board</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>

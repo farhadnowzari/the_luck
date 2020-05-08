@@ -2724,7 +2724,7 @@ var render = function() {
               type: "button"
             }
           },
-          [_vm._v("Details")]
+          [_c("i", { staticClass: "fa fa-trophy" }), _vm._v(" Score board")]
         )
       ])
     ]),
@@ -2789,7 +2789,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "modal-header" }, [
-      _c("h5", { staticClass: "modal-title" }, [_vm._v("Contestants")]),
+      _c("h5", { staticClass: "modal-title" }, [_vm._v("Score board")]),
       _vm._v(" "),
       _c(
         "button",
