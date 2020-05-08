@@ -43,9 +43,9 @@ class ContestsController extends Controller
         return response()->json([
             'contests' => $contests,
             'winnerOfAllTimes' => [
-                'winnerName' => $highestScoreContest->winnerName,
-                'score' => $highestScoreContest->highestScore,
-                'createdAt' => $highestScoreContest->createdAt 
+                'winnerName' => $highestScoreContest->winnerName ?? null,
+                'score' => $highestScoreContest->highestScore ?? null,
+                'createdAt' => $highestScoreContest->createdAt ?? null 
             ]
         ]);
     }
